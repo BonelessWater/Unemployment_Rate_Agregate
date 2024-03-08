@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def agregate(file, year, UR_US_total,UR_CA_total,UR_SanMateo_total,UR_SantaClara_total, UR_Alameda_total,UR_Yuba_total):
+    # Opens file
     labor = open(file, "r")
     data = labor.readlines() 
     lines = len(data)
@@ -16,20 +17,24 @@ def agregate(file, year, UR_US_total,UR_CA_total,UR_SanMateo_total,UR_SantaClara
             # California FINS state code
             if data[i].split()[1] == '06':
                 UR_CA_list.append(float(data[i].split()[-1]))
+            # San Mateo LAUS code
             if data[i].split()[0] == 'CN0608100000000':
                 UR_SanMateo = float(data[i].split()[-1])
+            # Santa Clara LAUS code
             elif data[i].split()[0] == 'CN0608500000000':
                 UR_SantaClara = float(data[i].split()[-1])
+            # Alameda LAUS code
             elif data[i].split()[0] == 'CN0600100000000':
                 UR_Alameda = float(data[i].split()[-1])
+            # Yuba LAUS code
             elif data[i].split()[0] == 'CN0611500000000': 
                 UR_Yuba = float(data[i].split()[-1])
         except ValueError:
             pass
-
+            
+    # Calculates average UR for US and California
     UR_US = sum(UR_US_list)
     average_US = UR_US / len(UR_US_list)
-
     UR_CA = sum(UR_CA_list)
     average_CA = UR_CA / len(UR_CA_list)
 
